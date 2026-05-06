@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manal Chabane — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #1c1714;
+      --bg2: #231e1a;
+      --bg3: #2a2420;
+      --border: rgba(255,255,255,0.08);
+      --terra: #c4714a;
+      --terra-lt: #d4896a;
+      --cream: #f0e6d6;
+      --cream-dk: #c8b89e;
+      --text: #f0e6d6;
+      --muted: #8a7d70;
+      --sans: 'DM Sans', sans-serif;
+      --serif: 'Lora', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(28,23,20,0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 17px;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-logo span {
+      color: var(--terra);
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cream);
+    }
+
+    .nav-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 6px 14px;
+      background: rgba(196,113,74,0.15);
+      color: var(--terra-lt);
+      border: 1px solid rgba(196,113,74,0.3);
+      letter-spacing: 0.03em;
+    }
+
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 148px 40px 90px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+    }
+
+    .tag-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--terra);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 62px);
+      font-weight: 400;
+      line-height: 1.12;
+      color: var(--cream);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: up 0.7s 0.1s forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--terra-lt);
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 500px;
+      margin-bottom: 40px;
+      font-weight: 300;
+      opacity: 0;
+      animation: up 0.7s 0.25s forwards;
+    }
+
+    .hero-desc strong {
+      color: var(--cream-dk);
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: up 0.7s 0.4s forwards;
+    }
+
+    .btn-main,
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .btn-main {
+      background: var(--terra);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .btn-main:hover { background: var(--terra-lt); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream-dk);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--terra);
+      color: var(--terra-lt);
+    }
+
+    .profile-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 32px;
+      opacity: 0;
+      animation: fadein 0.8s 0.5s forwards;
+      position: sticky;
+      top: 88px;
+    }
+
+    .avatar-wrap { margin-bottom: 20px; }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--terra) 0%, #9a4f2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 26px;
+      color: #fff;
+      font-style: italic;
+    }
+
+    .profile-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 3px;
+    }
+
+    .profile-title {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .info-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .info-text { color: var(--muted); }
+
+    .info-text a {
+      color: var(--terra-lt);
+      text-decoration: none;
+    }
+
+    .info-text a:hover { text-decoration: underline; }
+
+    .profile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .profile-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      font-size: 12px;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .profile-link:hover {
+      border-color: var(--terra);
+      color: var(--terra-lt);
+      background: rgba(196,113,74,0.05);
+    }
+
+    .profile-link span {
+      font-size: 11px;
+      opacity: 0.5;
+    }
+
+    .divider {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 72px 40px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--terra);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .skill-item {
+      background: var(--bg2);
+      padding: 28px 24px;
+      transition: background 0.2s;
+    }
+
+    .skill-item:hover { background: var(--bg3); }
+
+    .skill-num {
+      font-size: 10px;
+      color: var(--terra);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .skill-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .skill-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .stag {
+      font-size: 10px;
+      padding: 3px 8px;
+      background: rgba(196,113,74,0.1);
+      border: 1px solid rgba(196,113,74,0.2);
+      color: var(--terra-lt);
+    }
+
+    .projects-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .preview-card {
+      background: var(--bg2);
+      padding: 28px 24px;
+      text-decoration: none;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .preview-card:hover {
+      background: var(--bg3);
+    }
+
+    .preview-cat {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--terra);
+      margin-bottom: 16px;
+    }
+
+    .preview-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .preview-title em {
+      color: var(--terra-lt);
+      font-style: italic;
+    }
+
+    .preview-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .preview-link {
+      font-size: 12px;
+      color: var(--terra-lt);
+      margin-top: 20px;
+    }
+
+    .parcours-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .parcours-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .parcours-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .parcours-period {
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 3px;
+    }
+
+    .parcours-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 3px;
+    }
+
+    .parcours-place {
+      font-size: 12px;
+      color: var(--terra-lt);
+      margin-bottom: 8px;
+    }
+
+    .parcours-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .parcours-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 8px;
+      margin-top: 8px;
+      background: rgba(196,113,74,0.1);
+      border: 1px solid rgba(196,113,74,0.2);
+      color: var(--terra-lt);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--terra-lt); }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 860px) {
+      .nav-inner { padding: 0 20px; }
+      .nav-badge { display: none; }
+      .nav-links { gap: 18px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 110px 20px 60px;
+        gap: 40px;
+      }
+
+      .profile-card { position: static; }
+      .section { padding: 52px 20px; }
+      .divider { padding: 0 20px; }
+
+      .skills-grid,
+      .projects-preview {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .parcours-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 14px;
+        padding: 0 20px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .nav-links a[href="#parcours"] { display: none; }
+
+      .skills-grid,
+      .projects-preview {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Manal <span>Chabane</span></a>
+
+    <div class="nav-links">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="projets.html">Projets</a>
+      <a href="#parcours">Parcours</a>
+      <span class="nav-badge">Alternance 2026</span>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="hero-tag">
+      <span class="tag-dot"></span>
+      L3 Informatique
+    </div>
+
+    <h1>Manal<br><em>Chabane</em></h1>
+
+    <p class="hero-desc">
+      Étudiante en <strong>L3 Informatique à Aix-Marseille Université</strong>, intéressée par la cybersécurité, l’intelligence artificielle et le développement logiciel. À travers mes projets, j’explore aussi bien les systèmes distribués et les réseaux que les applications web et l’apprentissage automatique.
+    </p>
+
+    <div class="hero-actions">
+      <a href="projets.html" class="btn-main">Voir mes projets →</a>
+      <a href="CV_Manal_CHABANE.pdf" download class="btn-outline">Télécharger mon CV</a>
+    </div>
+  </div>
+
+  <aside class="profile-card">
+    <div class="avatar-wrap">
+      <div class="avatar">M</div>
+    </div>
+
+    <div class="profile-name">Manal Chabane</div>
+    <div class="profile-title">L3 Informatique<br>Cybersécurité · IA · Développement logiciel</div>
+
+    <div class="profile-info">
+      <div class="info-row">
+        <div class="info-icon">📍</div>
+        <span class="info-text">Paris / Marseille, France</span>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">✉️</div>
+        <span class="info-text">
+          <a href="mailto:manal.chabane.1@gmail.com">manal.chabane.1@gmail.com</a>
+        </span>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">📞</div>
+        <span class="info-text">07 64 35 28 63</span>
+      </div>
+    </div>
+
+    <div class="profile-links">
+      <a href="https://github.com/manalchabane1" target="_blank" class="profile-link">
+        GitHub <span>↗</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/manal-chabane-0079323a8/" target="_blank" class="profile-link">
+        LinkedIn <span>↗</span>
+      </a>
+
+      <a href="CV_Manal_CHABANE.pdf" download class="profile-link">
+        Télécharger mon CV <span>↓</span>
+      </a>
+    </div>
+  </aside>
+</header>
+
+<div class="divider"></div>
+
+<section class="section" id="competences">
+  <div class="section-label">Compétences</div>
+
+  <div class="skills-grid">
+    <div class="skill-item">
+      <span class="skill-num">01</span>
+      <div class="skill-name">Programmation</div>
+      <p class="skill-desc">Développement logiciel, programmation orientée objet, algorithmique et structuration de projets.</p>
+
+      <div class="skill-tags">
+        <span class="stag">Java</span>
+        <span class="stag">Python</span>
+        <span class="stag">C</span>
+        <span class="stag">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="skill-item">
+      <span class="skill-num">02</span>
+      <div class="skill-name">Systèmes & réseaux</div>
+      <p class="skill-desc">Bases en systèmes d’exploitation, Unix/Linux, communication réseau et architecture client-serveur.</p>
+
+      <div class="skill-tags">
+        <span class="stag">Linux</span>
+        <span class="stag">TCP/IP</span>
+        <span class="stag">Sockets</span>
+        <span class="stag">Git</span>
+      </div>
+    </div>
+
+    <div class="skill-item">
+      <span class="skill-num">03</span>
+      <div class="skill-name">Sécurité & données</div>
+      <p class="skill-desc">Cryptographie, signatures numériques, bases de données et premiers projets en apprentissage automatique.</p>
+
+      <div class="skill-tags">
+        <span class="stag">RSA</span>
+        <span class="stag">SQL</span>
+        <span class="stag">PostgreSQL</span>
+        <span class="stag">scikit-learn</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="projets-apercu">
+  <div class="section-label">Projets sélectionnés</div>
+
+  <div class="projects-preview">
+    <a href="projets.html" class="preview-card">
+      <div>
+        <div class="preview-cat">Web · IA · En cours</div>
+        <h2 class="preview-title">Memo<em>ra</em></h2>
+        <p class="preview-desc">Application web de révision intelligente avec génération de flashcards, quiz et résumés à partir de cours PDF.</p>
+      </div>
+      <span class="preview-link">Voir le projet →</span>
+    </a>
+
+    <a href="projets.html" class="preview-card">
+      <div>
+        <div class="preview-cat">Réseaux</div>
+        <h2 class="preview-title">Éditeur collaboratif distribué</h2>
+        <p class="preview-desc">Application Java client-serveur avec synchronisation, diffusion des mises à jour et architecture distribuée.</p>
+      </div>
+      <span class="preview-link">Voir le projet →</span>
+    </a>
+
+    <a href="projets.html" class="preview-card">
+      <div>
+        <div class="preview-cat">IA / Data</div>
+        <h2 class="preview-title">Classification d’images par ML</h2>
+        <p class="preview-desc">Extraction de caractéristiques RGB, HSV et HOG, comparaison de modèles et validation croisée.</p>
+      </div>
+      <span class="preview-link">Voir le projet →</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="parcours">
+  <div class="section-label">Parcours</div>
+
+  <div class="parcours-list">
+    <div class="parcours-item">
+      <span class="parcours-period">2025 — 2026</span>
+      <div>
+        <div class="parcours-title">Licence 3 Informatique</div>
+        <div class="parcours-place">Aix-Marseille Université · Marseille</div>
+        <p class="parcours-desc">Formation en algorithmique, programmation, systèmes d’exploitation, réseaux, cybersécurité, logique formelle et apprentissage automatique.</p>
+        <span class="parcours-badge">En cours</span>
+      </div>
+    </div>
+
+    <div class="parcours-item">
+      <span class="parcours-period">Mai — Juil. 2024</span>
+      <div>
+        <div class="parcours-title">Stagiaire en recherche</div>
+        <div class="parcours-place">Laboratoire d’Informatique et des Systèmes · Marseille</div>
+        <p class="parcours-desc">Étude des signatures numériques RSA et des enjeux de sécurité liés à la cryptographie asymétrique. Rédaction d’un rapport et présentation orale.</p>
+        <span class="parcours-badge">Cryptographie · RSA</span>
+      </div>
+    </div>
+
+    <div class="parcours-item">
+      <span class="parcours-period">Depuis avr. 2025</span>
+      <div>
+        <div class="parcours-title">Hôtesse d’accueil et orientation</div>
+        <div class="parcours-place">Costa Croisières · Marseille</div>
+        <p class="parcours-desc">Accueil et orientation de passagers dans un environnement international, communication en anglais et coordination avec les équipes opérationnelles.</p>
+        <span class="parcours-badge">Communication · Anglais</span>
+      </div>
+    </div>
+
+    <div class="parcours-item">
+      <span class="parcours-period">2022 — 2023</span>
+      <div>
+        <div class="parcours-title">Formation préparatoire en mathématiques appliquées</div>
+        <div class="parcours-place">NHSM · Algérie</div>
+        <p class="parcours-desc">Formation en mathématiques, logique, algorithmique, probabilités, structures de données et informatique théorique.</p>
+        <span class="parcours-badge">Mathématiques · Informatique théorique</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Manal Chabane</span>
+
+    <div class="footer-links">
+      <a href="https://github.com/manalchabane1" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/manal-chabane-0079323a8/" target="_blank">LinkedIn</a>
+      <a href="mailto:manal.chabane.1@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.style.opacity = '1';
+        en.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-item, .parcours-item, .preview-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(12px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, background 0.2s';
+    obs.observe(el);
+  });
+</script>
+
+</body>
+</html>
